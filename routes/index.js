@@ -100,7 +100,6 @@ router.post('/played', async (req, res, next) => {
   let dataDB = await ModelUser.findOne({
     cardId: data.cardId
   })
-  console.log(dataDB)
   if (dataDB) {
     res.json({
       code: 0,
@@ -125,13 +124,22 @@ router.post('/check', async (req, res, next) => {
         message: data.cardId + '已经领取过奖励'
       });
     } else {
-      await ModelUser.updateOne({
-        flagGiftGot: true
-      })
-      res.json({
-        code: 0,
-        message: data.cardId + '验证成功'
-      });
+
+      let listGamePlayed = dataDB.listGamePlayed.split(',').filter(item => !!item);
+      if (listGamePlayed.length >= 2) {
+        await ModelUser.updateOne({
+          flagGiftGot: true
+        })
+        res.json({
+          code: 0,
+          message: data.cardId + '验证成功'
+        });
+      } else {
+        res.json({
+          code: -1,
+          message: '未完成两个游戏'
+        });
+      }
     }
   } else {
     res.json({
