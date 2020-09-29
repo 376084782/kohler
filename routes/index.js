@@ -6,8 +6,8 @@ var router = express.Router();
 router.post('/doSubmit', async (req, res, next) => {
   let data = req.body;
   let dataDB = await ModelUser.findOne({
-    nickName: data.nickName,
-    cardId: data.cardId
+    nickName: '' + data.nickName,
+    cardId: '' + data.cardId
   })
   console.log(dataDB, data)
   if (dataDB) {
@@ -18,13 +18,13 @@ router.post('/doSubmit', async (req, res, next) => {
       });
     } else {
       await ModelUser.updateOne({
-        content: data.content,
+        content: '' + data.content,
         // 性别
-        sex: data.sex,
+        sex: '' + data.sex,
         // 手机号
-        phone: data.phone,
+        phone: '' + data.phone,
         // 号码牌
-        number: data.number,
+        number: '' + data.number,
       })
       res.json({
         code: 0,
@@ -45,8 +45,8 @@ router.post('/doSubmit', async (req, res, next) => {
 router.post('/login', async (req, res, next) => {
   let data = req.body;
   let dataDB = await ModelUser.findOne({
-    nickName: data.nickName,
-    cardId: data.cardId
+    nickName: '' + data.nickName,
+    cardId: '' + data.cardId
   })
   if (dataDB) {
     res.json({
@@ -66,7 +66,7 @@ router.post('/login', async (req, res, next) => {
 router.post('/scan', async (req, res, next) => {
   let data = req.body;
   let dataDB = await ModelUser.findOne({
-    cardId: data.cardId
+    cardId: '' + data.cardId
   })
   console.log(dataDB)
   if (dataDB) {
@@ -98,7 +98,7 @@ router.post('/scan', async (req, res, next) => {
 router.post('/played', async (req, res, next) => {
   let data = req.body;
   let dataDB = await ModelUser.findOne({
-    cardId: data.cardId
+    cardId: '' + data.cardId
   })
   if (dataDB) {
     res.json({
@@ -115,7 +115,7 @@ router.post('/played', async (req, res, next) => {
 router.post('/check', async (req, res, next) => {
   let data = req.body;
   let dataDB = await ModelUser.findOne({
-    cardId: data.cardId
+    cardId: '' + data.cardId
   })
   if (dataDB) {
     if (dataDB.flagGiftGot) {

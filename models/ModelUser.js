@@ -6,15 +6,15 @@ const Schema = mongoose.Schema;
 // 图鉴表，根据等级
 const ModelUser = new Schema({
   // 身份证
-  cardId: Number,
+  cardId: String,
   // 姓名
   nickName: String,
   // 性别
-  sex: Number,
+  sex: String,
   // 手机号
-  phone: Number,
+  phone: String,
   // 号码牌
-  number: Number,
+  number: String,
   // 服装上的印字
   content: String,
   // 已经打卡过的游戏
