@@ -29,8 +29,6 @@ router.post('/doSubmit', async (req, res, next) => {
         sex: '' + data.sex,
         // 手机号
         phone: '' + data.phone,
-        // 号码牌
-        number: '' + data.number,
         recordId: id
       })
       res.json({
@@ -140,7 +138,7 @@ router.post('/check', async (req, res, next) => {
     } else {
 
       let listGamePlayed = dataDB.listGamePlayed.split(',').filter(item => !!item);
-      if (listGamePlayed.length >= 2) {
+      if (listGamePlayed.length >= 3) {
         await dataDB.updateOne({
           flagGiftGot: true
         })
@@ -151,7 +149,7 @@ router.post('/check', async (req, res, next) => {
       } else {
         res.json({
           code: -1,
-          message: '未完成两个游戏'
+          message: '未完成三个游戏'
         });
       }
     }

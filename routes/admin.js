@@ -61,7 +61,6 @@ function writeExcel(datas) {
     sex: '性别',
     birthday: '生日',
     phone: '手机号',
-    number: '号码牌',
     content: '服装上的印字'
   }
   // 写入表头
