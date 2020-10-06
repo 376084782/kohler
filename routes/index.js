@@ -23,7 +23,7 @@ router.post('/doSubmit', async (req, res, next) => {
         }
       }).countDocuments()
       let id = count + 1;
-      await ModelUser.updateOne({
+      await dataDB.updateOne({
         content: '' + data.content,
         // 性别
         sex: '' + data.sex,
@@ -141,7 +141,7 @@ router.post('/check', async (req, res, next) => {
 
       let listGamePlayed = dataDB.listGamePlayed.split(',').filter(item => !!item);
       if (listGamePlayed.length >= 2) {
-        await ModelUser.updateOne({
+        await dataDB.updateOne({
           flagGiftGot: true
         })
         res.json({
