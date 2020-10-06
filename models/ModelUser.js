@@ -24,6 +24,10 @@ const ModelUser = new Schema({
   },
   // 是否领取过小礼物
   flagGiftGot: Boolean,
+  recordId: {
+    type: Number,
+    default: 0
+  },
 })
 
 export default mongoose.model('ModelUser', ModelUser);

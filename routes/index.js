@@ -17,6 +17,12 @@ router.post('/doSubmit', async (req, res, next) => {
         message: '您已定制过赛服，请勿重复提交。'
       });
     } else {
+      let count = await ModelUser.find({
+        recordId: {
+          $gt: 0
+        }
+      }).countDocuments()
+      let id = count + 1;
       await ModelUser.updateOne({
         content: '' + data.content,
         // 性别
@@ -25,11 +31,12 @@ router.post('/doSubmit', async (req, res, next) => {
         phone: '' + data.phone,
         // 号码牌
         number: '' + data.number,
+        recordId: id
       })
       res.json({
         code: 0,
         data: {
-          id: data.number,
+          id: id,
           content: data.content
         }
       });
@@ -65,10 +72,17 @@ router.post('/login', async (req, res, next) => {
 });
 router.post('/scan', async (req, res, next) => {
   let data = req.body;
+  let timeNow = new Date().getTime();
+  if (timeNow - data.time > 60 * 1000 * 5) {
+    res.json({
+      code: -1,
+      message: '验证码已过期，请刷新重试'
+    });
+    return
+  }
   let dataDB = await ModelUser.findOne({
     cardId: '' + data.cardId
   })
-  console.log(dataDB)
   if (dataDB) {
     let listGamePlayed = dataDB.listGamePlayed.split(',');
     if (listGamePlayed.indexOf(data.gameId) > -1) {
