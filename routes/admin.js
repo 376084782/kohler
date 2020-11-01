@@ -61,7 +61,10 @@ function writeExcel(datas) {
     sex: '性别',
     birthday: '生日',
     phone: '手机号',
-    content: '服装上的印字'
+    content: '服装上的印字',
+    recordId: '印字订单号',
+    listGamePlayed: '玩过的游戏',
+    flagGiftGot: '是否领取了小礼物'
   }
   // 写入表头
   let colTitle = [];
